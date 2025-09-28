@@ -4,11 +4,12 @@ import type { Theme } from "@monaco-editor/react";
 import { runCode } from "../utils/runcode";
 import ProblemStatement from "../components/ProblemStatement";
 
-import CodeEditor from "../components/CodeEditor";
+import CodeEditor, { type CodeEditorRef } from "../components/CodeEditor";
 import "./CodeEditorPage.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { PROBLEMS } from "../constants/problems";
 import Loader from "../ui/Loader";
+import CodeControls from "../components/CodeControls";
 
 const CodeEditorPage = () => {
   const { problemId } = useParams<{ problemId: string }>();
@@ -30,6 +31,9 @@ const CodeEditorPage = () => {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [hasBeenResized, setHasBeenResized] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Ref for CodeEditor to access formatting
+  const codeEditorRef = useRef<CodeEditorRef>(null);
 
   useEffect(() => {
     if (problem) {
@@ -65,6 +69,12 @@ const CodeEditorPage = () => {
       setLoading(false);
     }
   };
+
+  const handleFormat = useCallback((): void => {
+    if (codeEditorRef.current) {
+      codeEditorRef.current.formatCode();
+    }
+  }, []);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -131,43 +141,23 @@ const CodeEditorPage = () => {
         className="right"
         style={hasBeenResized ? { width: `${rightPanelWidth}%` } : undefined}
       >
-        <div className="controls">
-          <div className="control-group">
-            <label htmlFor="language-select">Language:</label>
-            <select
-              id="language-select"
-              onChange={(e) => setLanguage(e.target.value as Language)}
-              value={language}
-            >
-              <option value="javascript">JavaScript</option>
-              <option value="python">Python</option>
-              <option value="java">Java</option>
-              <option value="cpp">C++</option>
-            </select>
-          </div>
-
-          <div className="control-group">
-            <label htmlFor="theme-select">Theme:</label>
-            <select
-              id="theme-select"
-              onChange={(e) => setTheme(e.target.value as Theme)}
-              value={theme}
-            >
-              <option value="vs-dark">Dark</option>
-              <option value="light">Light</option>
-            </select>
-          </div>
-
-          <button className="run-button" onClick={handleRun} disabled={loading}>
-            {loading ? "Running..." : "Run Code"}
-          </button>
-        </div>
+        <CodeControls
+          onLanguageChange={setLanguage}
+          onThemeChange={setTheme}
+          handleRun={handleRun}
+          handleFormat={handleFormat}
+          language={language}
+          theme={theme}
+          loading={loading}
+          difficulty={problem ? problem.difficulty : "Easy"}
+        />
 
         <div className="code-section">
           {loading ? (
             <Loader />
           ) : (
             <CodeEditor
+              ref={codeEditorRef}
               language={language}
               code={code}
               onChange={(value) => setCode(value || "")}

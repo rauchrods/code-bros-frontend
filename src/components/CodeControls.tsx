@@ -3,6 +3,7 @@ import type { Difficulty, Language } from "../types";
 import "./CodeControls.scss";
 import { Wand } from "lucide-react";
 import { getDifficultyColor } from "../utils/difficultyColor";
+import Button from "../ui/Button";
 
 interface CodeControlsProps {
   onLanguageChange: (language: Language) => void;
@@ -65,9 +66,9 @@ const CodeControls: React.FC<CodeControlsProps> = ({
             onClick={handleFormat}
           />
         )}
-        <button className="run-button" onClick={handleRun} disabled={loading}>
+        <Button onClick={handleRun} loading={loading} size="md">
           {loading ? "Running..." : "Run Code"}
-        </button>
+        </Button>
       </div>
     </div>
   );

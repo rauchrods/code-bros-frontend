@@ -1,0 +1,49 @@
+import { Link, useLocation } from "react-router-dom";
+import "./NavBar.scss";
+
+interface NavbarProps {
+  className?: string;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+
+  return (
+    <nav className={`navbar ${className}`}>
+      <Link to="/" className="navbar-logo">
+        <span className="logo-icon">{"</>"}</span>
+        <span className="logo-text">CodeEditor</span>
+      </Link>
+
+      <div className="navbar-nav">
+        <Link to="/" className={`nav-link ${isHomePage ? "active" : ""}`}>
+          Problems
+        </Link>
+
+        {!isHomePage && (
+          <div className="nav-breadcrumb">
+            <span className="breadcrumb-separator">/</span>
+            <span className="current-problem">
+              {location.pathname.split("/").pop()}
+            </span>
+          </div>
+        )}
+      </div>
+
+      <div className="navbar-actions">
+        <a
+          href="https://github.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="nav-link external"
+          title="View on GitHub"
+        >
+          GitHub
+        </a>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

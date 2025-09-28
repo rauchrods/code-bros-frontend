@@ -1,5 +1,5 @@
 import type { Problem } from "../types";
-import { getDifficultyColor } from "../utils/difficultyColor";
+import DifficultyBadge from "../ui/DifficultyBadge";
 import "./ProblemStatement.scss";
 
 interface ProblemStatementProps {
@@ -16,14 +16,7 @@ const ProblemStatement: React.FC<ProblemStatementProps> = ({ problem }) => {
       <div className="problem-header-info">
         <h2>{problem.title}</h2>
         <div className="problem-meta">
-          <span
-            className={`difficulty`}
-            style={{
-              backgroundColor: getDifficultyColor(problem.difficulty),
-            }}
-          >
-            {problem.difficulty}
-          </span>
+          <DifficultyBadge difficulty={problem.difficulty} />
           <div className="tags">
             {problem.tags.map((tag) => (
               <span key={tag} className="tag">

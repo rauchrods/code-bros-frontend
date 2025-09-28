@@ -3,11 +3,12 @@ import type { CodeResult, Language } from "../types";
 import type { Theme } from "@monaco-editor/react";
 import { runCode } from "../utils/runcode";
 import ProblemStatement from "../components/ProblemStatement";
-import Loader from "../ui/loader/Loader";
+
 import CodeEditor from "../components/CodeEditor";
 import "./CodeEditorPage.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { PROBLEMS } from "../constants/problems";
+import Loader from "../ui/Loader";
 
 const CodeEditorPage = () => {
   const { problemId } = useParams<{ problemId: string }>();
@@ -15,9 +16,7 @@ const CodeEditorPage = () => {
 
   const problem = PROBLEMS.find((p) => p.id === problemId);
 
-  const [code, setCode] = useState<string>(
-    "// Write your code here\nfunction twoSum(nums, target) {\n  // Your solution here\n}"
-  );
+  const [code, setCode] = useState<string>("");
   const [language, setLanguage] = useState<Language>("javascript");
   const [output, setOutput] = useState<string>(
     "Run your code to see the output"
@@ -115,19 +114,11 @@ const CodeEditorPage = () => {
   }, [isDragging, handleMouseMove, handleMouseUp]);
 
   return (
-    <div
-      className="code-editor-page"
-      ref={containerRef}
-      style={
-        hasBeenResized
-          ? ({
-              "--left-panel-width": `${leftPanelWidth}%`,
-              "--right-panel-width": `${rightPanelWidth}%`,
-            } as React.CSSProperties)
-          : undefined
-      }
-    >
-      <div className="left">
+    <div className="code-editor-page" ref={containerRef}>
+      <div
+        className="left"
+        style={hasBeenResized ? { width: `${leftPanelWidth}%` } : undefined}
+      >
         <ProblemStatement problem={problem} />
       </div>
 
@@ -136,7 +127,10 @@ const CodeEditorPage = () => {
         onMouseDown={handleMouseDown}
       ></div>
 
-      <div className="right">
+      <div
+        className="right"
+        style={hasBeenResized ? { width: `${rightPanelWidth}%` } : undefined}
+      >
         <div className="controls">
           <div className="control-group">
             <label htmlFor="language-select">Language:</label>

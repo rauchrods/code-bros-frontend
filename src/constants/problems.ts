@@ -73,7 +73,7 @@ export const PROBLEMS: Problem[] = [
     constraints: [
       "The number of nodes in each linked list is in the range [1, 100]",
     ],
-    difficulty: "Medium",
+    difficulty: "Novice",
     tags: ["Linked List", "Math", "Recursion"],
     starterCode: {
       javascript: "function addTwoNumbers(l1, l2) {\n    // Your code here\n}",

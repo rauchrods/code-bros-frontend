@@ -1,13 +1,12 @@
 .code-editor-page {
   display: flex;
-  //   grid-template-columns: repeat(2, 1fr);
 
   > .left {
     background-color: #252526;
     border-right: 1px solid #3e3e42;
     overflow-y: auto;
     width: 50%;
-    width: var(--left-panel-width, 50%); // Override when dragging
+    //width: var(--left-panel-width, 50%); // Override when dragging
   }
 
   > .divider {
@@ -28,7 +27,7 @@
     display: flex;
     flex-direction: column;
     width: 50%;
-    width: var(--right-panel-width, 50%); // Override when dragging
+    //width: var(--right-panel-width, 50%); // Override when dragging
   }
 
   .controls {

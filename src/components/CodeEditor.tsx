@@ -35,7 +35,7 @@ const CodeEditor = forwardRef<CodeEditorRef, CodeEditorProps>(
     return (
       <div className="code-editor">
         <Editor
-          height="70vh"
+          height="60vh"
           width="100%"
           language={language}
           value={code}

@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import "./NavBar.scss";
+import { Code } from "lucide-react";
 
 interface NavbarProps {
   className?: string;
@@ -12,8 +13,8 @@ const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
   return (
     <nav className={`navbar ${className}`}>
       <Link to="/" className="navbar-logo">
-        <span className="logo-icon">{"</>"}</span>
-        <span className="logo-text">CodeEditor</span>
+        <Code color="#6366f1" strokeWidth={3} size={28} />
+        <span className="logo-text">CodeBro's</span>
       </Link>
 
       <div className="navbar-nav">
@@ -33,7 +34,7 @@ const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
 
       <div className="navbar-actions">
         <a
-          href="https://github.com"
+          href="https://github.com/rauchrods"
           target="_blank"
           rel="noopener noreferrer"
           className="nav-link external"

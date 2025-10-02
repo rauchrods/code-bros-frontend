@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { CodeResult, Language } from "../types";
+import type { Language, RunResponse } from "../types";
 import type { Theme } from "@monaco-editor/react";
-import { runCode } from "../utils/runcode";
+
 import ProblemStatement from "../components/ProblemStatement";
 
 import CodeEditor, { type CodeEditorRef } from "../components/CodeEditor";
@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PROBLEMS } from "../constants/problems";
 import Loader from "../ui/Loader";
 import CodeControls from "../components/CodeControls";
+import { runCode } from "../services/api";
 
 const CodeEditorPage = () => {
   const { problemId } = useParams<{ problemId: string }>();
@@ -47,16 +48,17 @@ const CodeEditorPage = () => {
     }
   }, [problem, navigate]);
 
-  const handleRun = async (): Promise<void> => {
+  console.log("code", code);
+
+  const handleRun = async () => {
     setLoading(true);
     try {
-      const result: CodeResult | null = await runCode(code, language);
+      const result: RunResponse = await runCode(code, language);
       if (result) {
         setOutput(
-          result.stdout ||
-            result.stderr ||
-            result.compile_output ||
-            result.status?.description ||
+          result.result.stdout ||
+            result.result.stderr ||
+            result.result.status ||
             "No output"
         );
       } else {

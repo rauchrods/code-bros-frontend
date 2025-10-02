@@ -4,10 +4,7 @@ export type Theme = "vs-dark" | "vs" | "hc-black";
 export interface CodeResult {
   stdout?: string;
   stderr?: string;
-  compile_output?: string;
-  status?: {
-    description: string;
-  };
+  status?: string;
   time?: string;
   memory?: number;
 }
@@ -41,4 +38,9 @@ export interface Problem {
   difficulty: Difficulty;
   tags: string[];
   starterCode: StarterCode;
+}
+
+export interface RunResponse {
+  success: boolean;
+  result: CodeResult;
 }

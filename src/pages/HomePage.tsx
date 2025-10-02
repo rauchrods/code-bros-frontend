@@ -2,12 +2,34 @@ import { PROBLEMS } from "../constants/problems";
 import "./HomePage.scss";
 
 import ProblemCard from "../components/ProblemCard";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Button from "../ui/Button";
+import type { Problem } from "../types";
+import { getAllProblems } from "../services/api";
+import Loader from "../ui/Loader";
 
 const HomePage: React.FC = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("All");
   const [selectedTag, setSelectedTag] = useState<string>("All");
+  const [problems, setProblems] = useState<Problem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchProblems = async () => {
+      setLoading(true);
+      try {
+        const result = await getAllProblems();
+        const problems: Problem[] = result.problems;
+        setProblems(problems);
+      } catch (error) {
+        console.error("Failed to fetch problems:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProblems();
+  }, []);
 
   const difficulties = ["All", "Easy", "Novice", "Medium", "Hard"];
 
@@ -34,7 +56,7 @@ const HomePage: React.FC = () => {
 
   // Filter problems based on selected filters
   const filteredProblems = useMemo(() => {
-    return PROBLEMS.filter((problem) => {
+    return problems.filter((problem) => {
       const matchesDifficulty =
         selectedDifficulty === "All" ||
         problem.difficulty === selectedDifficulty;
@@ -42,7 +64,7 @@ const HomePage: React.FC = () => {
         selectedTag === "All" || problem.tags.includes(selectedTag);
       return matchesDifficulty && matchesTag;
     });
-  }, [selectedDifficulty, selectedTag]);
+  }, [selectedDifficulty, selectedTag, problems]);
 
   return (
     <div className="home-page">
@@ -89,7 +111,6 @@ const HomePage: React.FC = () => {
             Clear Filters
           </Button>
         </div>
-
         <div className="results-info">
           <span className="results-count">
             Showing {filteredProblems.length} of {PROBLEMS.length} problems
@@ -98,7 +119,9 @@ const HomePage: React.FC = () => {
       </div>
 
       <div className="problems-container">
-        {filteredProblems.length > 0 ? (
+        {loading ? (
+          <Loader />
+        ) : filteredProblems.length > 0 ? (
           <div className="problems-grid">
             {filteredProblems.map((problem) => (
               <ProblemCard key={problem.id} problem={problem} />

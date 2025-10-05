@@ -10,7 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PROBLEMS } from "../constants/problems";
 import Loader from "../ui/Loader";
 import CodeControls from "../components/CodeControls";
-import { runCode } from "../services/api";
+import { runCode, submitCode } from "../services/api";
 
 const CodeEditorPage = () => {
   const { problemId } = useParams<{ problemId: string }>();
@@ -53,20 +53,90 @@ const CodeEditorPage = () => {
   const handleRun = async () => {
     setLoading(true);
     try {
-      const result: RunResponse = await runCode(code, language);
-      if (result) {
-        setOutput(
-          result.result.stdout ||
-            result.result.stderr ||
-            result.result.status ||
-            "No output"
-        );
+      const data: RunResponse = await runCode(code, language);
+
+      console.log("Run response:", data);
+
+      if (data.success) {
+        const result = data.result;
+        if (result.stderr) {
+          setOutput(`❌ Error:\n${result.stderr}`);
+        } else if (result.stdout) {
+          setOutput(`✅ Output:\n${result.stdout}`);
+        } else {
+          setOutput("No output");
+        }
       } else {
-        setOutput("Error: Failed to execute code");
+        setOutput(`Error: ${data.result.status || "Failed to run code"}`);
       }
     } catch (error) {
-      console.log("Error executing code:", error);
-      setOutput("Error: Failed to execute code");
+      console.error("Error executing code:", error);
+      setOutput(
+        "❌ Error: Failed to execute code. Make sure the backend server is running."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async (): Promise<void> => {
+    if (!problemId) {
+      setOutput("Error: Problem ID not found");
+      return;
+    }
+
+    setLoading(true);
+    setOutput("Submitting code and running test cases...");
+
+    try {
+      const data = await submitCode(code, language, problemId);
+
+      if (data.success) {
+        if (data.allPassed) {
+          // All tests passed
+          let resultText = `🎉 Accepted! All ${data.totalTests} test cases passed!\n\n`;
+          resultText += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+          data.testResults.forEach((test, idx) => {
+            resultText += `✅ Test Case ${idx + 1}: PASSED\n`;
+            resultText += `   Input: ${test.input}\n`;
+            resultText += `   Time: ${test.executionTime}ms\n\n`;
+          });
+
+          setOutput(resultText);
+        } else {
+          // Some tests failed
+          let resultText = `❌ Wrong Answer\n`;
+          resultText += `${data.passedCount}/${data.totalTests} test cases passed\n\n`;
+          resultText += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+          data.testResults.forEach((test, idx) => {
+            if (test.passed) {
+              resultText += `✅ Test Case ${idx + 1}: PASSED\n`;
+              resultText += `   Input: ${test.input}\n`;
+              resultText += `   Time: ${test.executionTime}ms\n\n`;
+            } else {
+              resultText += `❌ Test Case ${idx + 1}: FAILED\n`;
+              resultText += `   Input: ${test.input}\n`;
+              resultText += `   Expected: ${test.expectedOutput}\n`;
+              resultText += `   Got: ${test.actualOutput}\n`;
+              if (test.error) {
+                resultText += `   Error: ${test.error}\n`;
+              }
+              resultText += `   Time: ${test.executionTime}ms\n\n`;
+            }
+          });
+
+          setOutput(resultText);
+        }
+      } else {
+        setOutput(`Error: ${data.message || "Failed to submit code"}`);
+      }
+    } catch (error) {
+      console.error("Error submitting code:", error);
+      setOutput(
+        "❌ Error: Failed to submit code. Make sure the backend server is running."
+      );
     } finally {
       setLoading(false);
     }
@@ -146,7 +216,7 @@ const CodeEditorPage = () => {
         <CodeControls
           onLanguageChange={setLanguage}
           onThemeChange={setTheme}
-          handleRun={handleRun}
+          handleRun={handleSubmit}
           handleFormat={handleFormat}
           language={language}
           theme={theme}

@@ -44,3 +44,24 @@ export interface RunResponse {
   success: boolean;
   result: CodeResult;
 }
+
+export interface TestResult {
+  testCase: number;
+  input: string;
+  expectedOutput: string;
+  actualOutput: string;
+  passed: boolean;
+  executionTime: number;
+  memory: number;
+  error: string | null;
+}
+
+export interface SubmitResponse {
+  success: boolean;
+  allPassed: boolean;
+  passedCount: number;
+  failedCount: number;
+  totalTests: number;
+  testResults: TestResult[];
+  message: string;
+}

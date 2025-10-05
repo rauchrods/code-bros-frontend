@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env VITE_APP_ENV=development vite",
     "start": "cross-env VITE_APP_ENV=production vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && cross-env VITE_APP_ENV=production vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

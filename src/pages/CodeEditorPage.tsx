@@ -216,7 +216,8 @@ const CodeEditorPage = () => {
         <CodeControls
           onLanguageChange={setLanguage}
           onThemeChange={setTheme}
-          handleRun={handleSubmit}
+          handleRun={handleRun}
+          handleSubmit={handleSubmit}
           handleFormat={handleFormat}
           language={language}
           theme={theme}

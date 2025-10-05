@@ -1,7 +1,7 @@
 import type { Theme } from "@monaco-editor/react";
 import type { Difficulty, Language } from "../types";
 import "./CodeControls.scss";
-import { Wand } from "lucide-react";
+import { Play, Wand } from "lucide-react";
 import { getDifficultyColor } from "../utils/difficultyColor";
 import Button from "../ui/Button";
 
@@ -9,6 +9,7 @@ interface CodeControlsProps {
   onLanguageChange: (language: Language) => void;
   onThemeChange: (theme: Theme) => void;
   handleRun: () => void;
+  handleSubmit: () => void;
   handleFormat: () => void;
   language: Language;
   theme: Theme;
@@ -20,6 +21,7 @@ const CodeControls: React.FC<CodeControlsProps> = ({
   onLanguageChange,
   onThemeChange,
   handleRun,
+  handleSubmit,
   handleFormat,
   language,
   theme,
@@ -66,8 +68,11 @@ const CodeControls: React.FC<CodeControlsProps> = ({
             onClick={handleFormat}
           />
         )}
-        <Button onClick={handleRun} loading={loading} size="md">
-          {loading ? "Running..." : "Run Code"}
+
+        <Play onClick={handleRun} size={32} />
+
+        <Button onClick={handleSubmit} loading={loading} size="md">
+          {loading ? "Submitting..." : "Submit Code"}
         </Button>
       </div>
     </div>

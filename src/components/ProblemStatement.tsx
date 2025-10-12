@@ -2,8 +2,16 @@ import type { Problem } from "../types";
 import DifficultyBadge from "../ui/DifficultyBadge";
 import "./ProblemStatement.scss";
 
+const renderInput = (input: object): string => {
+  let inputString = "";
+  Object.entries(input).forEach(([key, value]) => {
+    inputString += `${key}: ${JSON.stringify(value)}, `;
+  });
+  return inputString;
+};
+
 interface ProblemStatementProps {
-  problem: Problem | undefined;
+  problem: Problem | null;
 }
 
 const ProblemStatement: React.FC<ProblemStatementProps> = ({ problem }) => {
@@ -37,10 +45,10 @@ const ProblemStatement: React.FC<ProblemStatementProps> = ({ problem }) => {
               <h4>Example {index + 1}:</h4>
               <div className="example-content">
                 <p>
-                  <strong>Input:</strong> {example.input}
+                  <strong>Input:</strong> {renderInput(example.input)}
                 </p>
                 <p>
-                  <strong>Output:</strong> {example.output}
+                  <strong>Output:</strong> {JSON.stringify(example.output)}
                 </p>
                 {example.explanation && (
                   <p>

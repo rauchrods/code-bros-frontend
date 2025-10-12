@@ -1,4 +1,3 @@
-import { PROBLEMS } from "../constants/problems";
 import "./HomePage.scss";
 
 import ProblemCard from "../components/ProblemCard";
@@ -13,6 +12,7 @@ const HomePage: React.FC = () => {
   const [selectedTag, setSelectedTag] = useState<string>("All");
   const [problems, setProblems] = useState<Problem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [tags, setTags] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchProblems = async () => {
@@ -31,23 +31,22 @@ const HomePage: React.FC = () => {
     fetchProblems();
   }, []);
 
-  const difficulties = ["All", "Easy", "Novice", "Medium", "Hard"];
+  useEffect(() => {
+    const loadTags = () => {
+      const uniqueTags = new Set<string>();
 
-  const tags = [
-    "All",
-    "Array",
-    "Binary Search",
-    "Divide and Conquer",
-    "Dynamic Programming",
-    "Greedy",
-    "Hash Table",
-    "Linked List",
-    "Math",
-    "Recursion",
-    "Sliding Window",
-    "String",
-    "Two Pointers",
-  ];
+      problems.forEach((problem) => {
+        problem.tags.forEach((tag) => {
+          uniqueTags.add(tag);
+        });
+      });
+      setTags(Array.from(uniqueTags));
+    };
+
+    loadTags();
+  }, [problems]);
+
+  const difficulties = ["All", "Easy", "Novice", "Medium", "Hard"];
 
   const clearFilters = () => {
     setSelectedDifficulty("All");
@@ -113,7 +112,7 @@ const HomePage: React.FC = () => {
         </div>
         <div className="results-info">
           <span className="results-count">
-            Showing {filteredProblems.length} of {PROBLEMS.length} problems
+            Showing {filteredProblems.length} of {problems.length} problems
           </span>
         </div>
       </div>

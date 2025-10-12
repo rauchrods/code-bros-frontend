@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Language, RunResponse } from "../types";
+import type { Language, Problem, RunResponse } from "../types";
 import type { Theme } from "@monaco-editor/react";
 
 import ProblemStatement from "../components/ProblemStatement";
@@ -7,17 +7,18 @@ import ProblemStatement from "../components/ProblemStatement";
 import CodeEditor, { type CodeEditorRef } from "../components/CodeEditor";
 import "./CodeEditorPage.scss";
 import { useNavigate, useParams } from "react-router-dom";
-import { PROBLEMS } from "../constants/problems";
+
 import Loader from "../ui/Loader";
 import CodeControls from "../components/CodeControls";
-import { runCode, submitCode } from "../services/api";
+import { getProblemById, runCode, submitCode } from "../services/api";
 
 const CodeEditorPage = () => {
-  const { problemId } = useParams<{ problemId: string }>();
+  const { problemId } = useParams();
   const navigate = useNavigate();
 
-  const problem = PROBLEMS.find((p) => p.id === problemId);
+  const [problem, setProblem] = useState<Problem | null>(null);
 
+  useEffect(() => {}, []);
   const [code, setCode] = useState<string>("");
   const [language, setLanguage] = useState<Language>("javascript");
   const [output, setOutput] = useState<string>(
@@ -43,12 +44,27 @@ const CodeEditorPage = () => {
   }, [problem, language]);
 
   useEffect(() => {
-    if (!problem) {
-      navigate("/");
-    }
-  }, [problem, navigate]);
+    const fetchProblemById = async () => {
+      setLoading(true);
+      try {
+        const result = await getProblemById(problemId);
+        const problem: Problem = result.problem;
 
-  console.log("code", code);
+        console.log("Fetched problem:", problem);
+        if (!problem) {
+          navigate("/");
+        }
+        setProblem(problem);
+      } catch (error) {
+        console.error("Failed to fetch problem:", error);
+        navigate("/");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProblemById();
+  }, [navigate, problemId]);
 
   const handleRun = async () => {
     setLoading(true);

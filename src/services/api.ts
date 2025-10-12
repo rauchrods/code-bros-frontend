@@ -26,7 +26,7 @@ export const getAllProblems = async () => {
 /**
  * Get problem by ID
  */
-export const getProblemById = async (problemId: string) => {
+export const getProblemById = async (problemId: string | undefined) => {
   try {
     const response = await fetch(`${API_URL}/problems/${problemId}`);
 

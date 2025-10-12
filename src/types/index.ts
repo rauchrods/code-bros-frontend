@@ -14,8 +14,8 @@ export interface LanguageOptions {
 }
 
 export interface Example {
-  input: string;
-  output: string;
+  input: object;
+  output: object;
   explanation?: string;
 }
 

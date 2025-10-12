@@ -1,5 +1,29 @@
 .problem-statement {
-  padding: 2rem;
+  padding: 2rem 1rem;
+
+  .tab-container {
+    display: flex;
+    border-bottom: 2px solid #444444;
+    margin-bottom: 1.5rem;
+
+    .tab {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-weight: 600;
+      color: #bbbbbb;
+      border-bottom: 2px solid transparent;
+      transition: color 0.3s, border-bottom-color 0.3s;
+
+      &.active {
+        color: #ffffff;
+        border-bottom-color: #007acc;
+      }
+
+      &:hover {
+        color: #ffffff;
+      }
+    }
+  }
 
   h2 {
     margin: 0 0 1.5rem 0;
@@ -68,6 +92,12 @@
             margin: 0.5rem 0;
             font-family: "Courier New", monospace;
             font-size: 0.875rem;
+          }
+
+          .example-output{
+            white-space: pre-wrap;
+            display: flex;
+            gap: 1rem;
           }
         }
       }

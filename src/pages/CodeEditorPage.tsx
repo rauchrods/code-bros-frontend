@@ -50,7 +50,6 @@ const CodeEditorPage = () => {
         const result = await getProblemById(problemId);
         const problem: Problem = result.problem;
 
-        console.log("Fetched problem:", problem);
         if (!problem) {
           navigate("/");
         }

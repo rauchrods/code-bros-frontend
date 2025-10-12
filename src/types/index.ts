@@ -38,6 +38,7 @@ export interface Problem {
   difficulty: Difficulty;
   tags: string[];
   starterCode: StarterCode;
+  solutionLink: string;
 }
 
 export interface RunResponse {

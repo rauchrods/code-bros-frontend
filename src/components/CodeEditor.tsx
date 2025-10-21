@@ -18,6 +18,22 @@ const CodeEditor = forwardRef<CodeEditorRef, CodeEditorProps>(
   ({ language = "javascript", code, onChange, theme }, ref) => {
     const editorRef = useRef<Monaco.editor.IStandaloneCodeEditor | null>(null);
 
+    // Map our language types to Monaco language identifiers
+    const getMonacoLanguage = (lang: Language): string => {
+      switch (lang) {
+        case "javascript":
+          return "javascript";
+        case "python":
+          return "python";
+        case "java":
+          return "java";
+        case "cpp":
+          return "cpp";
+        default:
+          return "javascript";
+      }
+    };
+
     const handleEditorDidMount = (
       editor: Monaco.editor.IStandaloneCodeEditor
     ) => {
@@ -37,7 +53,7 @@ const CodeEditor = forwardRef<CodeEditorRef, CodeEditorProps>(
         <Editor
           height="60vh"
           width="100%"
-          language={language}
+          language={getMonacoLanguage(language)}
           value={code}
           theme={theme}
           onChange={onChange}

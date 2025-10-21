@@ -32,6 +32,17 @@ const ProblemCard: React.FC<ProblemCardProps> = ({ problem }) => {
           </span>
         ))}
       </div>
+
+      <div className="problem-stats">
+        <div className="stat">
+          <span className="stat-label">Acceptance:</span>
+          <span className="stat-value">{parseFloat(problem.acceptance_rate).toFixed(1)}%</span>
+        </div>
+        <div className="stat">
+          <span className="stat-label">Submissions:</span>
+          <span className="stat-value">{problem.total_submissions.toLocaleString()}</span>
+        </div>
+      </div>
     </Link>
   );
 };

@@ -39,6 +39,8 @@ export interface Problem {
   tags: string[];
   starterCode: StarterCode;
   solutionLink: string;
+  acceptance_rate: string;
+  total_submissions: number;
 }
 
 export interface RunResponse {

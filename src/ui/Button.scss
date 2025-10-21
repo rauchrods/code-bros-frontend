@@ -1,3 +1,5 @@
+@import '../styles/colors.scss';
+
 .btn {
   display: flex;
   align-items: center;
@@ -37,33 +39,33 @@
 
 // Variants
 .btn--primary {
-  background: #6366f1;
-  border-color: #6366f1;
-  color: #ffffff;
+  background: $primary;
+  border-color: $primary;
+  color: $text-primary;
 
   &:not(:disabled):hover {
-    background: #5855eb;
-    border-color: #5855eb;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    background: $primary-hover;
+    border-color: $primary-hover;
+    box-shadow: 0 4px 12px $shadow-primary;
   }
 }
 
 .btn--secondary {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
+  background: $overlay-medium;
+  border-color: $border-light;
+  color: $text-primary;
 
   &:not(:disabled):hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+    background: $overlay-heavy;
+    border-color: $border-lighter;
+    box-shadow: 0 4px 12px $shadow-light;
   }
 }
 
 .btn--danger {
-  background: rgba(239, 68, 68, 0.15);
-  border-color: rgba(239, 68, 68, 0.3);
-  color: #ef4444;
+  background: $danger-light;
+  border-color: $danger-border;
+  color: $danger;
 
   &:not(:disabled):hover {
     background: rgba(239, 68, 68, 0.25);
@@ -73,9 +75,9 @@
 }
 
 .btn--success {
-  background: rgba(34, 197, 94, 0.15);
-  border-color: rgba(34, 197, 94, 0.3);
-  color: #22c55e;
+  background: $success-light;
+  border-color: $success-border;
+  color: $success;
 
   &:not(:disabled):hover {
     background: rgba(34, 197, 94, 0.25);
@@ -86,24 +88,24 @@
 
 .btn--outline {
   background: transparent;
-  border-color: rgba(255, 255, 255, 0.3);
-  color: #ffffff;
+  border-color: $border-lighter;
+  color: $text-primary;
 
   &:not(:disabled):hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: $overlay-light;
     border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px $shadow-light;
   }
 }
 
 .btn--ghost {
   background: transparent;
   border-color: transparent;
-  color: #a1a1aa;
+  color: $text-light;
 
   &:not(:disabled):hover {
-    background: rgba(255, 255, 255, 0.05);
-    color: #ffffff;
+    background: $overlay-light;
+    color: $text-primary;
   }
 }
 
@@ -160,5 +162,5 @@
 
 // Focus visible for accessibility
 .btn:focus-visible {
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 0 0 3px $shadow-primary;
 }

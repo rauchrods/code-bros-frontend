@@ -1,6 +1,8 @@
+@import '../styles/colors.scss';
+
 .problem-card {
-  background-color: #252526;
-  border: 1px solid #3e3e42;
+  background-color: $bg-secondary;
+  border: 1px solid $border-primary;
   border-radius: 8px;
   padding: 1.2rem;
   text-decoration: none;
@@ -12,9 +14,9 @@
   justify-content: space-between;
 
   &:hover {
-    border-color: #007acc;
+    border-color: $border-hover;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 122, 204, 0.2);
+    box-shadow: 0 4px 12px $shadow-hover;
   }
 
   .problem-header {
@@ -27,12 +29,12 @@
   .problem-title {
     margin: 0;
     font-size: 1.25rem;
-    color: #ffffff;
+    color: $text-primary;
     flex: 1;
   }
 
   .problem-description {
-    color: #cccccc;
+    color: $text-secondary;
     line-height: 1.5;
     margin-bottom: 1rem;
   }
@@ -44,10 +46,38 @@
   }
 
   .tag {
-    background-color: #3c3c3c;
-    color: #cccccc;
+    background-color: $bg-input;
+    color: $text-secondary;
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
     font-size: 0.75rem;
+  }
+
+  .problem-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid $border-primary;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .stat-value {
+    font-size: 0.875rem;
+    color: $text-primary;
+    font-weight: 500;
   }
 }

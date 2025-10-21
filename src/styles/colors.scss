@@ -1,0 +1,64 @@
+// Color Variables for CodeBros Frontend
+// This file contains all color constants used throughout the application
+
+// Primary Brand Colors
+$primary: #6366f1;
+$primary-hover: #5855eb;
+$primary-light: rgba(99, 102, 241, 0.1);
+$primary-border: rgba(99, 102, 241, 0.3);
+
+// Background Colors
+$bg-primary: #1e1e1e;           // Main background
+$bg-secondary: #252526;         // Card backgrounds
+$bg-tertiary: #2d2d30;          // Control panels
+$bg-dark: #1a1a1a;              // Darker sections
+$bg-input: #3c3c3c;             // Input backgrounds
+
+// Border Colors
+$border-primary: #3e3e42;       // Main borders
+$border-light: rgba(255, 255, 255, 0.2);
+$border-lighter: rgba(255, 255, 255, 0.3);
+$border-hover: #007acc;         // Hover state borders
+
+// Text Colors
+$text-primary: #ffffff;         // Primary text
+$text-secondary: #cccccc;       // Secondary text
+$text-muted: #888888;           // Muted text
+$text-light: #a1a1aa;           // Light text
+$text-gray: #6b7280;            // Gray text
+
+// Status Colors
+$success: #22c55e;              // Success green
+$success-light: rgba(34, 197, 94, 0.15);
+$success-border: rgba(34, 197, 94, 0.3);
+
+$danger: #ef4444;               // Danger red
+$danger-light: rgba(239, 68, 68, 0.15);
+$danger-border: rgba(239, 68, 68, 0.3);
+
+$warning: #fdb631;              // Warning orange (Medium difficulty)
+$info: #007acc;                 // Info blue
+
+// Difficulty Colors
+$difficulty-novice: #8e38ff;    // Purple for Novice
+$difficulty-easy: #00b894;      // Green for Easy
+$difficulty-medium: #fdb631;    // Orange for Medium
+$difficulty-hard: #e17055;      // Red for Hard
+
+// Scrollbar Colors
+$scrollbar-track: #2d2d2d;
+$scrollbar-thumb: $primary;
+$scrollbar-thumb-hover: $primary-hover;
+
+// Overlay Colors
+$overlay-light: rgba(255, 255, 255, 0.05);
+$overlay-medium: rgba(255, 255, 255, 0.1);
+$overlay-heavy: rgba(255, 255, 255, 0.15);
+
+// Shadow Colors
+$shadow-primary: rgba(99, 102, 241, 0.3);
+$shadow-light: rgba(255, 255, 255, 0.1);
+$shadow-hover: rgba(0, 122, 204, 0.2);
+
+// Backdrop Filter
+$backdrop-blur: rgba(30, 30, 30, 0.95);

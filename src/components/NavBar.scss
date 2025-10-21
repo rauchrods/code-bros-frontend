@@ -1,3 +1,5 @@
+@import '../styles/colors.scss';
+
 // components/Navbar.scss
 .navbar {
   position: fixed;
@@ -5,9 +7,9 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(30, 30, 30, 0.95);
+  background: $backdrop-blur;
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid #3e3e42;
+  border-bottom: 1px solid $border-primary;
   height: 60px;
   padding: 0 2rem;
   display: flex;
@@ -19,13 +21,13 @@
     align-items: center;
     gap: 0.5rem;
     text-decoration: none;
-    color: #ffffff;
+    color: $text-primary;
     font-weight: 600;
     font-size: 1.25rem;
     transition: all 0.3s ease;
 
     &:hover {
-      color: #6366f1;
+      color: $primary;
       transform: translateY(-1px);
     }
   }
@@ -37,7 +39,7 @@
   }
 
   .nav-link {
-    color: #cccccc;
+    color: $text-secondary;
     text-decoration: none;
     padding: 0.5rem 1rem;
     border-radius: 6px;
@@ -46,14 +48,14 @@
     position: relative;
 
     &:hover {
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.1);
+      color: $text-primary;
+      background: $overlay-medium;
       transform: translateY(-1px);
     }
 
     &.active {
-      color: #6366f1;
-      background: rgba(99, 102, 241, 0.1);
+      color: $primary;
+      background: $primary-light;
 
       &::after {
         content: "";
@@ -63,7 +65,7 @@
         transform: translateX(-50%);
         width: 30px;
         height: 2px;
-        background: #6366f1;
+        background: $primary;
         border-radius: 2px;
       }
     }
@@ -89,15 +91,15 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: #a1a1aa;
+    color: $text-light;
     font-size: 0.9rem;
 
     .breadcrumb-separator {
-      color: #6b7280;
+      color: $text-gray;
     }
 
     .current-problem {
-      color: #cccccc;
+      color: $text-secondary;
       font-weight: 500;
       text-transform: capitalize;
     }

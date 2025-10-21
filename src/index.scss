@@ -1,3 +1,5 @@
+@import './styles/colors.scss';
+
 * {
   box-sizing: border-box;
 }
@@ -9,8 +11,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #1e1e1e;
-  color: #ffffff;
+  background-color: $bg-primary;
+  color: $text-primary;
 }
 
 code {
@@ -24,14 +26,14 @@ code {
 }
 
 ::-webkit-scrollbar-track {
-  background: #2d2d2d;
+  background: $scrollbar-track;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #6366f1;
+  background: $scrollbar-thumb;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #5855eb;
+  background: $scrollbar-thumb-hover;
 }
